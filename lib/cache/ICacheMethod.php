@@ -4,7 +4,5 @@ namespace wechat\lib\cache;
 
 interface ICacheMethod
 {
-    public function fileCache($key,$value);
-
-    public function redisCache($key,$value);
+    public function cache($key, $timeout, $value);
 }

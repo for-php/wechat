@@ -3,5 +3,7 @@ namespace wechat\lib\cache;
 
 interface ICache
 {
-    public function cache($key,$value,$type);
+    public function setCache($key,$value,$type);
+
+    public function getCache($key,$type);
 }
