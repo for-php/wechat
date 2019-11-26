@@ -1,0 +1,11 @@
+{
+    "name": "taurus12c/wechat",
+    "type": "composer-plugin",
+    "authors": [
+        {
+            "name": "Taurus12C",
+            "email": "1402410174@qq.com.com"
+        }
+    ],
+    "require": {}
+}
