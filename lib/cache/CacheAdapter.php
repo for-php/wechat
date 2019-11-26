@@ -7,16 +7,6 @@ class CacheAdapter implements ICache
 
     private $type;
 
-//    public function __construct($type=false)
-//    {
-//        if ($type){
-//            $this->type = $type;
-//        }else{
-//            $this->type = require '../../config.php';
-//        }
-//
-//    }
-
     public function setCache($key, $value, $type=false)
     {
         // TODO: Implement cache() method.
