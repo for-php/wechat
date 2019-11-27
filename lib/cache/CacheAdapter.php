@@ -1,21 +1,26 @@
 <?php
 namespace wechat\lib\cache;
 
+use wechat\lib\Config;
 
 class CacheAdapter implements ICache
 {
 
-    private $type;
+    private $type = 'file';
+
+    public function __construct()
+    {
+        $this->type = Config::cache('type');
+    }
 
     public function setCache($key, $value, $type=false)
     {
         // TODO: Implement cache() method.
-        if (!$type){
-            $config = require '../../config.php';
-            $this->type = $config['cache']['type'];
+        if ($type){
+            $this->type = $type;
         }
 
-        switch ($type) {
+        switch ($this->type) {
 
             case 'file':
                 $cache = new FileCache();
@@ -36,12 +41,11 @@ class CacheAdapter implements ICache
     public function getCache($key,$type=false)
     {
         // TODO: Implement getCache() method.
-        $config = require '../../config.php';
-        if (!$type){
-            $this->type = $config['cache']['type'];
+        if ($type){
+            $this->type = $type;
         }
 
-        switch ($type) {
+        switch ($this->type) {
 
             case 'file':
                 $cache = new FileCache();

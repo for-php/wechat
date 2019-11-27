@@ -1,7 +1,7 @@
 <?php
-
-
 namespace wechat\lib\cache;
+
+use wechat\lib\Config;
 
 
 class RedisCache implements ICacheMethod
@@ -26,11 +26,11 @@ class RedisCache implements ICacheMethod
     }
 
     private function redis(){
-        $config = $config = require '../../config.php';
+        $config = Config::redis();
         $redis = new \Redis();
-        $redis->connect($config['redis']['host'],$config['redis']['port']);
-        $redis->auth($config['redis']['auth']);
-        $redis->select($config['redis']['dbIndex']);
+        $redis->connect($config['host'],$config['port']);
+        $redis->auth($config['auth']);
+        $redis->select($config['dbIndex']);
         return $redis;
     }
 
