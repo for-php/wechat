@@ -21,7 +21,8 @@ class Config
         // TODO: Implement __clone() method.
     }
 
-    public static function getInstance(){
+    public static function getInstance()
+    {
 
         if (!self::$instance instanceof self) {
             self::$instance = new self();

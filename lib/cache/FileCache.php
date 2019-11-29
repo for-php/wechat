@@ -9,7 +9,7 @@ class FileCache implements ICacheMethod
     public function cache($key, $timeout=7000, $value=false)
     {
         // TODO: Implement cache() method.
-        $filename = Config::cache('path');
+        $filename = Config::cache('path')."$key.json";
         if ($value){
             $fp = fopen($filename, "w") or die("Unable to open file!");//创建/打开文件
             fwrite($fp, "" . $value);//写入accesstoken
