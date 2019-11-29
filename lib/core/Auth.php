@@ -6,19 +6,45 @@ namespace wechat\lib\core;
 
 trait Auth
 {
-    public function checkSignature($token,$timestamp, $nonce,$signature,$echostr){
+    public function checkSignature($token,$timestamp, $nonce,$signature,$echostr)
+    {
+        //排序验证
+        $tmpArr = array($token, $timestamp, $nonce);
+        // use SORT_STRING rule
+        sort($tmpArr, SORT_STRING);
+        $tmpStr = implode( $tmpArr );
+        $tmpStr = sha1( $tmpStr );
+
+        if( $tmpStr == $signature ){
+            echo $echostr;
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    private function globalAccessToken($appid,$appsecret)
+    {
+        
+    }
+
+    public function getGlobalAccessToken()
+    {
 
     }
 
-    public function globalAccessToken($appid,$appsecret){
+    private function getCode()
+    {
 
     }
 
-    public function webAccessToken(){
+    private function webAccessToken()
+    {
 
     }
 
-    private function getCode(){
+    public function getWebAccessToken()
+    {
 
     }
 }

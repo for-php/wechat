@@ -7,7 +7,7 @@ use wechat\lib\Config;
 class RedisCache implements ICacheMethod
 {
 
-    public function cache($key, $timeout=7000, $value=false)
+    public function cache($key, $value=false, $timeout=7000)
     {
         // TODO: Implement cache() method.
 

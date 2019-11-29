@@ -9,7 +9,7 @@
 
         'cache' => [
             'type'          => 'file',
-            'path'          => __DIR__.'/'
+            'path'          => __DIR__.'/cache/'
         ],
 
         'redis' => [

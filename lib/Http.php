@@ -7,7 +7,7 @@ use wechat\lib\http\IHttp;
 
 class Http implements IHttp
 {
-    public function http($type, $url, $data)
+    public function http($type, $url, $data=false)
     {
         // TODO: Implement http() method.
         $http = new HttpAdapter();

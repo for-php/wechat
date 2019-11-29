@@ -2,13 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a04b323f-904e-421c-9afc-03d53a82caf4" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Wechat.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Wechat.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config.php" beforeDir="false" afterPath="$PROJECT_DIR$/config.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/Config.php" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Config.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Http.php" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Http.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/cache/FileCache.php" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cache/FileCache.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/cache/ICacheMethod.php" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cache/ICacheMethod.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/cache/RedisCache.php" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cache/RedisCache.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/core/Auth.php" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/Auth.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -55,7 +57,7 @@
       <option name="presentableId" value="Default" />
       <updated>1574929404258</updated>
       <workItem from="1574929405621" duration="3949000" />
-      <workItem from="1574991378860" duration="8688000" />
+      <workItem from="1574991378860" duration="12304000" />
     </task>
     <servers />
   </component>

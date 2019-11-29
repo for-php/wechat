@@ -34,7 +34,7 @@ class Config
     {
         // TODO: Implement __get() method.
         if(!self::$config){
-            self::$config = require '../config.php';
+            self::$config = require __DIR__.'/../config.php';
         }
         return self::$config[$name];
     }
@@ -43,11 +43,11 @@ class Config
     {
         // TODO: Implement __callStatic() method.
         if(!self::$config){
-            self::$config = require '../config.php';
+            self::$config = require __DIR__.'/../config.php';
         }
 
         if ($arguments){
-            return self::$config[$name][$arguments];
+            return self::$config[$name][$arguments[0]];
         }else{
             return self::$config[$name];
         }

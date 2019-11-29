@@ -17,6 +17,6 @@ class Cache implements ICache
     {
         // TODO: Implement getCache() method.
         $cache = new CacheAdapter();
-        $cache->getCache($key,$type);
+        return $cache->getCache($key,$type);
     }
 }
