@@ -13,7 +13,7 @@ class CacheAdapter implements ICache
         $this->type = Config::cache('type');
     }
 
-    public function setCache($key, $value, $type=false)
+    public function setCache($key, $value, $timeout, $type=false)
     {
         // TODO: Implement cache() method.
         if ($type){
@@ -24,12 +24,12 @@ class CacheAdapter implements ICache
 
             case 'file':
                 $cache = new FileCache();
-                $cache->cache($key,$value);
+                $cache->cache($key,$value,$timeout);
                 break;
 
             case 'redis':
                 $cache = new RedisCache();
-                $cache->cache($key,$value);
+                $cache->cache($key,$value,$timeout);
                 break;
 
             default:
@@ -49,12 +49,12 @@ class CacheAdapter implements ICache
 
             case 'file':
                 $cache = new FileCache();
-                $str = $cache->cache($key);
+                $str = $cache->cache($key,$value=false,$timeout=7000);
                 break;
 
             case 'redis':
                 $cache = new RedisCache();
-                $str = $cache->cache($key);
+                $str = $cache->cache($key,$value=false,$timeout=7000);
                 break;
 
             default:

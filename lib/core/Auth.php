@@ -36,21 +36,31 @@ trait Auth
         $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$appid&secret=$appsecret";
         $str = Http::curl('get',$url);
         Cache::cache('globalaccesstoken',$str);
-        return $str;
+        return json_decode($str,true);
     }
 
-    private function getCode()
+    private function getCode($appid,$redirect_uri,$state)
     {
-
+        $redirect_url = urlencode($redirect_uri);
+        $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=$appid&redirect_uri=$redirect_url&response_type=code&scope=snsapi_userinfo&state=$state#wechat_redirect";
+        Header("Location: $url");
     }
 
-    private function webAccessToken()
+    private function webAccessToken($appid,$appsecret,$code)
     {
-
+        $url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=$appid&secret=$appsecret&code=$code&grant_type=authorization_code";
+        $str = Http::curl('get',$url);
+        Cache::cache('webaccesstoken',$str);
+        $refresh_token['refresh_token'] = json_decode($str,true)['refresh_token'];
+        Cache::cache('refreshtoken',json_encode($refresh_token),2505600);
+        return json_decode($str,true);
     }
 
-    public function getWebAccessToken()
-    {
-
+    private function refreshToken($appid,$refresh_token){
+        $url = "https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=$appid&grant_type=refresh_token&refresh_token=$refresh_token";
+        $str = Http::curl('get',$url);
+        Cache::cache('webaccesstoken',$str);
+        return json_decode($str,true);
     }
+
 }

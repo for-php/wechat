@@ -6,11 +6,11 @@ use wechat\lib\cache\CacheAdapter;
 
 class Cache implements ICache
 {
-    public function setCache($key, $value, $type)
+    public function setCache($key, $value, $timeout=7000, $type)
     {
         // TODO: Implement setCache() method.
         $cache = new CacheAdapter();
-        $cache->setCache($key,$value,$type);
+        $cache->setCache($key,$value,$timeout,$type);
     }
 
     public function getCache($key, $type)
@@ -20,9 +20,9 @@ class Cache implements ICache
         return $cache->getCache($key,$type);
     }
 
-    public static function cache($key, $value=false, $type=false){
+    public static function cache($key, $value=false, $timeout=7000, $type=false){
         if ($value){
-            self::setCache($key, $value, $type);
+            self::setCache($key, $value, $timeout, $type);
         }else{
             return (new self())->getCache($key, $type);
         }
