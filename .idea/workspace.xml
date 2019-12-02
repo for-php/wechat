@@ -4,13 +4,6 @@
     <list default="true" id="a04b323f-904e-421c-9afc-03d53a82caf4" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Cache.php" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Cache.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Wechat.php" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Wechat.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/cache/CacheAdapter.php" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cache/CacheAdapter.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/cache/FileCache.php" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cache/FileCache.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/cache/ICache.php" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cache/ICache.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/cache/RedisCache.php" beforeDir="false" afterPath="$PROJECT_DIR$/lib/cache/RedisCache.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/core/Auth.php" beforeDir="false" afterPath="$PROJECT_DIR$/lib/core/Auth.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -58,7 +51,7 @@
       <updated>1574929404258</updated>
       <workItem from="1574929405621" duration="3949000" />
       <workItem from="1574991378860" duration="17529000" />
-      <workItem from="1575251407723" duration="15247000" />
+      <workItem from="1575251407723" duration="15950000" />
     </task>
     <servers />
   </component>
