@@ -4,7 +4,7 @@ require_once 'vendor/autoload.php';
 /*
  * 注意事项
  * 请先将必要文件夹cache权限修改为777
- * 请先将配置文件./config.php按照自己的实际情况调整
+ * 请先将配置文件./config.php按照自己的实际情况调整(此开发包使用本人申请的微信公众平台测试号的appid)
  **/
 
 //导入Wechat类，完成微信开发
