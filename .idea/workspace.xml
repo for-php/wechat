@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a04b323f-904e-421c-9afc-03d53a82caf4" name="Default Changelist" comment="" />
+    <list default="true" id="a04b323f-904e-421c-9afc-03d53a82caf4" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/cache/globalaccesstoken.json" beforeDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,7 +50,7 @@
       <updated>1574929404258</updated>
       <workItem from="1574929405621" duration="3949000" />
       <workItem from="1574991378860" duration="17529000" />
-      <workItem from="1575251407723" duration="17200000" />
+      <workItem from="1575251407723" duration="17449000" />
     </task>
     <servers />
   </component>
