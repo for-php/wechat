@@ -6,7 +6,7 @@
     "require": {
         "php": ">=7.0"
     },
-    "type": "composer-plugin",
+    "type": "library",
     "authors": [
         {
             "name": "Taurus12C",
