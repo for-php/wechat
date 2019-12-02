@@ -2,7 +2,7 @@
     "name": "taurus12c/wechat",
     "description": "微信开发工具",
     "license": "Apache-2.0",
-    "minimum-stability":"stable",
+    "minimum-stability":"dev",
     "require": {
         "php": ">=7.0"
     },
