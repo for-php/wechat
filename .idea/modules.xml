@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="ProjectModuleManager">
-    <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/Wechat.iml" filepath="$PROJECT_DIR$/.idea/Wechat.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../mywechat/.idea/mywechat.iml" filepath="$PROJECT_DIR$/../mywechat/.idea/mywechat.iml" />
-    </modules>
-  </component>
-</project>
