@@ -7,23 +7,45 @@ use wechat\lib\Config;
 use wechat\lib\core\Auth;
 use wechat\lib\core\IAuth;
 
+/**
+ * Class Wechat
+ * @package wechat\lib
+ */
 class Wechat implements IAuth
 {
     use Auth;
 
-    protected $appid;
+    /**
+     * @var bool|string
+     */
+    protected $appid = '';
 
-    protected $appsecret;
+    /**
+     * @var bool|string
+     */
+    protected $appsecret = '';
 
-    protected $token;
+    /**
+     * @var bool|string
+     */
+    protected $token = '';
 
-    public function __construct($appid=false,$appsecret=false,$token=false)
+    /**
+     * Wechat constructor.
+     * @param bool $appid
+     * @param bool $appsecret
+     * @param bool $token
+     */
+    public function __construct($appid=false, $appsecret=false, $token=false)
     {
         $this->appid = $appid?$appid:Config::wechat('appid');
         $this->appsecret = $appsecret?$appsecret:Config::wechat('appsecret');
         $this->token = $token?$token:Config::wechat('token');
     }
 
+    /**
+     * @return mixed
+     */
     public function getGlobalAccessToken()
     {
         $arr = json_decode(Cache::cache('globalaccesstoken'),true);
@@ -39,37 +61,38 @@ class Wechat implements IAuth
         return $arr['access_token'];
     }
 
-    public function webAuth($redirect_uri,$state='state')
+    /**
+     * @param $redirect_uri
+     * @param string $state
+     */
+    public function webAuth($redirect_uri, $scope, $state='state')
     {
-        $this->getCode($this->appid,$redirect_uri,$state);
+        $this->getCode($this->appid,$redirect_uri,$scope,$state);
     }
 
-    public function getWebAccessToken()
-    {
+    public function getUserInfo(){
+
         if (isset($_GET['code'])){
             $code = $_GET['code'];
-            $arr = $this->webAccessToken($this->appid,$this->appsecret,$code);
-            return $arr['access_token'];
+            $str = $this->userInfo($this->appid,$this->appsecret,$code);
+            return $str;
         }
 
-        $arr = json_decode(Cache::cache('webaccesstoken'),true);
         $redirect_url = 'http://'.$_SERVER['SERVER_NAME'].$_SERVER["REQUEST_URI"];
+        $this->webAuth($redirect_url,'snsapi_userinfo');
 
-        if ($arr['timeout']&&$arr['timeout']<time()){
+    }
 
-            $refresh_token = json_decode(Cache::cache('refreshtoken'),true);
-            if ($refresh_token&&$refresh_token['timeout']>time()){
-                $arr = $this->refreshToken($this->appid,$refresh_token['refresh_token']);
-                return $arr['access_token'];
-            }
-            $this->webAuth($redirect_url);
+    public function getOpenId(){
+
+        if (isset($_GET['code'])){
+            $code = $_GET['code'];
+            $str = $this->openId($this->appid,$this->appsecret,$code);
+            return $str;
         }
 
-        if (!$arr||array_key_exists($arr['access_token'])){
-            $this->webAuth($redirect_url);
-        }
-
-        return $arr['access_token'];
+        $redirect_url = 'http://'.$_SERVER['SERVER_NAME'].$_SERVER["REQUEST_URI"];
+        $this->webAuth($redirect_url,'snsapi_base ');
     }
 
 }

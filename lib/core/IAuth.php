@@ -10,5 +10,7 @@ interface IAuth
 
     public function webAuth($redirect_uri,$state);
 
-    public function getWebAccessToken();
+    public function getOpenId();
+
+    public function getUserInfo();
 }

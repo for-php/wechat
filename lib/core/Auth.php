@@ -39,28 +39,27 @@ trait Auth
         return json_decode($str,true);
     }
 
-    private function getCode($appid,$redirect_uri,$state)
+    private function getCode($appid,$redirect_uri,$scope,$state)
     {
         $redirect_url = urlencode($redirect_uri);
-        $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=$appid&redirect_uri=$redirect_url&response_type=code&scope=snsapi_userinfo&state=$state#wechat_redirect";
+        $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=$appid&redirect_uri=$redirect_url&response_type=code&scope=$scope&state=$state#wechat_redirect";
         Header("Location: $url");
     }
 
-    private function webAccessToken($appid,$appsecret,$code)
+    private function userInfo($appid,$appsecret,$code,$lang='zh_CN')
     {
         $url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=$appid&secret=$appsecret&code=$code&grant_type=authorization_code";
         $str = Http::curl('get',$url);
-        Cache::cache('webaccesstoken',$str);
-        $refresh_token['refresh_token'] = json_decode($str,true)['refresh_token'];
-        Cache::cache('refreshtoken',json_encode($refresh_token),2505600);
-        return json_decode($str,true);
+        $arr = json_decode($str,true);
+        $url = "https://api.weixin.qq.com/sns/userinfo?access_token=".$arr['access_token']."&openid=".$arr['openid']."&lang=$lang";
+        $str = Http::curl('get',$url);
+        return $str;
     }
 
-    private function refreshToken($appid,$refresh_token){
-        $url = "https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=$appid&grant_type=refresh_token&refresh_token=$refresh_token";
+    private function openId($appid,$appsecret,$code){
+        $url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=$appid&secret=$appsecret&code=$code&grant_type=authorization_code";
         $str = Http::curl('get',$url);
-        Cache::cache('webaccesstoken',$str);
-        return json_decode($str,true);
+        return json_decode($str,true)['openid'];
     }
 
 }

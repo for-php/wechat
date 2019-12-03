@@ -15,14 +15,14 @@ use wechat\lib\Wechat;
 $wechat = new Wechat();
 
 //接口配置服务器验证方法。一般只需用到一次
-#$wechat->checkSignature();
+# $wechat->checkSignature();
 
 //获取微信全局access_token，公众号给类接口调用时所用的access_token
-$global_access_token = $wechat->getGlobalAccessToken();
+# $global_access_token = $wechat->getGlobalAccessToken();
 
-//获取微信网页授权access_token。
-$web_access_token = $wechat->getWebAccessToken();
+//微信网页授权获取用户信息
+# $userInfo = $wechat->getUserInfo();
 
-//查看获取的access_token
-var_dump($web_access_token);
-var_dump($global_access_token);
+//单独获取用户openid，此获取不跳转用户授权界面，静默授权
+# $openid = $wechat->getOpenId();
+
