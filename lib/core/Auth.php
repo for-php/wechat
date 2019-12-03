@@ -43,7 +43,7 @@ trait Auth
     {
         $redirect_url = urlencode($redirect_uri);
         $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=$appid&redirect_uri=$redirect_url&response_type=code&scope=$scope&state=$state#wechat_redirect";
-        Header("Location: $url");
+        Header("Location: $url");die();
     }
 
     private function userInfo($appid,$appsecret,$code,$lang='zh_CN')
