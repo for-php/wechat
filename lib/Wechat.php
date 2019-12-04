@@ -53,7 +53,7 @@ class Wechat implements IAuth
      * @desc 获取全局access_token
      * @return string
      */
-    public function getGlobalAccessToken()
+    public function getGlobalAccessToken():string
     {
         $arr = json_decode(Cache::cache('globalaccesstoken'),true);
 
@@ -74,7 +74,7 @@ class Wechat implements IAuth
      * @param $scope 应用授权作用域
      * @param string $state 授权回调参数
      */
-    public function webAuth($redirect_uri, $scope, $state='state')
+    public function webAuth(string $redirect_uri, string $scope, string $state='state'):void
     {
         $this->getCode($this->appid,$redirect_uri,$scope,$state);
     }
@@ -83,7 +83,8 @@ class Wechat implements IAuth
      * @desc 获取用户基本信息
      * @return string|mixed
      */
-    public function getUserInfo(){
+    public function getUserInfo()
+    {
 
         if (isset($_GET['code'])){
             $code = $_GET['code'];
@@ -100,7 +101,8 @@ class Wechat implements IAuth
      * @desc 获取用户openid
      * @return mixed
      */
-    public function getOpenId(){
+    public function getOpenId()
+    {
 
         if (isset($_GET['code'])){
             $code = $_GET['code'];

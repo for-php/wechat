@@ -14,13 +14,13 @@ namespace wechat\lib\core;
 interface IAuth
 {
 
-    public function getGlobalAccessToken();
+    public function getGlobalAccessToken():string;
 
     /**
      * @param $redirect_uri
      * @param $state
      */
-    public function webAuth($redirect_uri, $state);
+    public function webAuth(string $redirect_uri, string $scope, string $state='state'):void;
 
     public function getOpenId();
 

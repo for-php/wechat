@@ -21,7 +21,7 @@ trait Auth
      * @desc 微信服务器接入验证
      * @return bool
      */
-    public function checkSignature()
+    public function checkSignature():bool
     {
         $signature = $_GET["signature"];
         $timestamp = $_GET["timestamp"];
@@ -49,7 +49,7 @@ trait Auth
      * @return mixed
      * @throws \Exception
      */
-    private function globalAccessToken($appid, $appsecret)
+    private function globalAccessToken(string $appid, string $appsecret):array
     {
         $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$appid&secret=$appsecret";
         $str = Http::curl('get',$url);
@@ -64,7 +64,7 @@ trait Auth
      * @param $scope
      * @param $state
      */
-    private function getCode($appid, $redirect_uri, $scope, $state)
+    private function getCode(string $appid, string $redirect_uri, string $scope, $state):void
     {
         $redirect_url = urlencode($redirect_uri);
         $url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=$appid&redirect_uri=$redirect_url&response_type=code&scope=$scope&state=$state#wechat_redirect";
@@ -79,7 +79,7 @@ trait Auth
      * @param string $lang
      * @return bool|mixed
      */
-    private function userInfo($appid, $appsecret, $code, $lang='zh_CN')
+    private function userInfo(string $appid, string $appsecret, string $code, string $lang='zh_CN'):string
     {
         $url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=$appid&secret=$appsecret&code=$code&grant_type=authorization_code";
         $str = Http::curl('get',$url);
@@ -96,7 +96,8 @@ trait Auth
      * @param $code
      * @return mixed
      */
-    private function openId($appid, $appsecret, $code){
+    private function openId(string $appid, string $appsecret, string $code):string
+    {
         $url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=$appid&secret=$appsecret&code=$code&grant_type=authorization_code";
         $str = Http::curl('get',$url);
         return json_decode($str,true)['openid'];
