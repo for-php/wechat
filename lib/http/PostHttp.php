@@ -4,8 +4,21 @@
 namespace wechat\lib\http;
 
 
+/**
+ * Class PostHttp
+ * @package wechat\lib\http
+ * @auth: Taurus12C
+ * @email: 1402410174@qq.com
+ * @date: 2019-12-04 10:29:32
+ */
 class PostHttp implements IHttpMethod
 {
+    /**
+     * @desc
+     * @param $url
+     * @param $data
+     * @return mixed
+     */
     public function http($url, $data)
     {
         // TODO: Implement http() method.

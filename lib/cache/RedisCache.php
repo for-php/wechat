@@ -4,9 +4,23 @@ namespace wechat\lib\cache;
 use wechat\lib\Config;
 
 
+/**
+ * Class RedisCache
+ * @package wechat\lib\cache
+ * @auth: Taurus12C
+ * @email: 1402410174@qq.com
+ * @date: 2019-12-04 10:30:51
+ */
 class RedisCache implements ICacheMethod
 {
 
+    /**
+     * @desc
+     * @param $key
+     * @param bool $value
+     * @param $timeout
+     * @return bool|mixed|string
+     */
     public function cache($key, $value=false, $timeout)
     {
         // TODO: Implement cache() method.
@@ -25,6 +39,10 @@ class RedisCache implements ICacheMethod
         }
     }
 
+    /**
+     * @desc
+     * @return \Redis
+     */
     private function redis(){
         $config = Config::redis();
         $redis = new \Redis();

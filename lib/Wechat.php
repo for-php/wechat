@@ -10,22 +10,28 @@ use wechat\lib\core\IAuth;
 /**
  * Class Wechat
  * @package wechat\lib
+ * @auth: Taurus12C
+ * @email: 1402410174@qq.com
+ * @date: 2019-12-04 10:27:35
  */
 class Wechat implements IAuth
 {
     use Auth;
 
     /**
+     * @desc 微信 服务号|订阅号 appid
      * @var bool|string
      */
     protected $appid = '';
 
     /**
+     * @desc 微信 服务号|订阅号 appsecret
      * @var bool|string
      */
     protected $appsecret = '';
 
     /**
+     * @desc 微信 服务号|订阅号 token
      * @var bool|string
      */
     protected $token = '';
@@ -44,7 +50,8 @@ class Wechat implements IAuth
     }
 
     /**
-     * @return mixed
+     * @desc 获取全局access_token
+     * @return string
      */
     public function getGlobalAccessToken()
     {
@@ -62,14 +69,20 @@ class Wechat implements IAuth
     }
 
     /**
-     * @param $redirect_uri
-     * @param string $state
+     * @desc 引导用户前往微信授权页面
+     * @param $redirect_uri 授权后重定向地址
+     * @param $scope 应用授权作用域
+     * @param string $state 授权回调参数
      */
     public function webAuth($redirect_uri, $scope, $state='state')
     {
         $this->getCode($this->appid,$redirect_uri,$scope,$state);
     }
 
+    /**
+     * @desc 获取用户基本信息
+     * @return string|mixed
+     */
     public function getUserInfo(){
 
         if (isset($_GET['code'])){
@@ -83,6 +96,10 @@ class Wechat implements IAuth
 
     }
 
+    /**
+     * @desc 获取用户openid
+     * @return mixed
+     */
     public function getOpenId(){
 
         if (isset($_GET['code'])){

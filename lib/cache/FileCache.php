@@ -3,9 +3,23 @@ namespace wechat\lib\cache;
 
 use wechat\lib\Config;
 
+/**
+ * Class FileCache
+ * @package wechat\lib\cache
+ * @auth: Taurus12C
+ * @email: 1402410174@qq.com
+ * @date: 2019-12-04 10:30:28
+ */
 class FileCache implements ICacheMethod
 {
 
+    /**
+     * @desc
+     * @param $key
+     * @param bool $value
+     * @param $timeout
+     * @return bool|string|null
+     */
     public function cache($key, $value=false, $timeout)
     {
         // TODO: Implement cache() method.

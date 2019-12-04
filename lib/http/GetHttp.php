@@ -4,8 +4,21 @@
 namespace wechat\lib\http;
 
 
+/**
+ * Class GetHttp
+ * @package wechat\lib\http
+ * @auth: Taurus12C
+ * @email: 1402410174@qq.com
+ * @date: 2019-12-04 10:28:40
+ */
 class GetHttp implements IHttpMethod
 {
+    /**
+     * @desc
+     * @param $url
+     * @param $data
+     * @return mixed
+     */
     public function http($url, $data)
     {
         // TODO: Implement http() method.
