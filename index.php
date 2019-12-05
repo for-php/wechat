@@ -24,5 +24,72 @@ $wechat = new Wechat();
 # $userInfo = $wechat->getUserInfo();
 
 //单独获取用户openid，此获取不跳转用户授权界面，静默授权
- $openid = $wechat->getOpenId();
-var_dump($openid);
+# $openid = $wechat->getOpenId();
+
+//设置公众号菜单,方法形参$data强制数组，返回bool型。菜单设置方式请遵从微信自定义菜单规则
+/*
+    $data = [
+         "button"=>[
+             [
+                 "name"         =>"按钮一",
+                 "type"         =>"view",
+                 "url"          =>"http://www.baidu.com",
+             ],
+             [
+                 "name"         =>"按钮二",
+                 "sub_button"   =>[
+                     [
+                         "name"         =>"二级菜单1",
+                         "type"         =>"view",
+                         "url"          =>"http://www.baidu.com"
+                     ]
+                 ]
+             ]
+         ]
+    ];
+*/
+# $setMenu = $wechat->setMenu($data);
+
+//获取当前自定义菜单设置
+# $getMenu = $wechat->getMenuInfo();
+
+//删除自定义菜单
+# $delMenu = $wechat->delMenu();
+
+//设置个性化菜单，$data菜单设置样式，$matchrule个性化菜单匹配规则，返回bool型，详情微信手册
+/*
+    $data = [
+        "button"=>[
+            [
+                "name"         =>"按钮一",
+                "type"         =>"view",
+                "url"          =>"http://www.baidu.com",
+            ],
+            [
+                "name"         =>"按钮二",
+                "sub_button"   =>[
+                    [
+                        "name"         =>"二级菜单1",
+                        "type"         =>"view",
+                        "url"          =>"http://www.baidu.com"
+                    ]
+                ]
+            ]
+        ],
+    ];
+    $matchrule = [
+        "matchrule"=>[
+            "tag_id"=> "2",
+            "sex"=> "1",
+            "country"=> "中国",
+            "province"=> "广东",
+            "city"=> "广州",
+            "client_platform_type"=> "2",
+            "language"=> "zh_CN"
+        ]
+    ];
+*/
+# $setMenuConditional = $wechat->setMenuConditional($data,$matchrule);
+
+//获取个性化菜单设置
+# $getMenuConditionalInfo = $wechat->getMenuConditionalInfo();

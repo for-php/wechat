@@ -10,8 +10,8 @@ trait Menu
 {
     private function menu(string $access_token,array $data):string
     {
-        $url = " https://api.weixin.qq.com/cgi-bin/menu/create?access_token=$access_token";
-        $data = json_encode($data);
+        $url = "https://api.weixin.qq.com/cgi-bin/menu/create?access_token=$access_token";
+        $data = json_encode($data,JSON_UNESCAPED_UNICODE);
         $str = Http::curl('post',$url,$data);
         return $str;
     }
@@ -35,7 +35,14 @@ trait Menu
         $url = "https://api.weixin.qq.com/cgi-bin/menu/addconditional?access_token=ACCESS_TOKEN";
         $arr = array();
         $arr = array_merge($data,$matchrule);
-        $str = Http::curl('post',json_encode($arr));
+        $str = Http::curl('post',$url,json_encode($arr));
+        return $str;
+    }
+
+    private function menuConditionalInfo(string $access_token):string
+    {
+        $url = "https://api.weixin.qq.com/cgi-bin/menu/get?access_token=$access_token";
+        $str = Http::curl('get',$url);
         return $str;
     }
 }

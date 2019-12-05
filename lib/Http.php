@@ -25,6 +25,7 @@ class Http implements IHttp
     {
         // TODO: Implement http() method.
         $http = new HttpAdapter();
+        $url = trim($url);
         return $http->http($type, $url, $data);
     }
 

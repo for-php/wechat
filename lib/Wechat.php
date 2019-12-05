@@ -7,7 +7,9 @@ use mysql_xdevapi\Exception;
 use wechat\lib\Config;
 use wechat\lib\core\Auth;
 use wechat\lib\core\IAuth;
+use wechat\lib\core\IMenu;
 use wechat\lib\core\IResponseCode;
+use wechat\lib\core\Menu;
 
 /**
  * Class Wechat
@@ -16,9 +18,9 @@ use wechat\lib\core\IResponseCode;
  * @email: 1402410174@qq.com
  * @date: 2019-12-04 10:27:35
  */
-class Wechat implements IAuth,IResponseCode
+class Wechat implements IAuth,IResponseCode,IMenu
 {
-    use Auth;
+    use Auth,Menu;
 
     /**
      * @desc 微信 服务号|订阅号 appid
@@ -64,7 +66,7 @@ class Wechat implements IAuth,IResponseCode
             $str = $this->globalAccessToken($this->appid,$this->appsecret);
         }
 
-        if(!$arr||array_key_exists($arr['access_token'])){
+        if(!$arr||!array_key_exists('access_token',$arr)){
             $str = $this->globalAccessToken($this->appid,$this->appsecret);
         }
 
@@ -130,7 +132,68 @@ class Wechat implements IAuth,IResponseCode
         $this->webAuth($redirect_url,'snsapi_base');
     }
 
-    public function checkError(string $response): bool
+    /**
+     * @desc 设置自定义菜单
+     * @param array $data
+     * @return bool
+     */
+    public function setMenu(array $data): bool
+    {
+        $str = $this->menu($this->getGlobalAccessToken(), $data);
+        return $this->checkError($str);
+    }
+
+    /**
+     * @desc 获取自定义菜单
+     * @return string
+     */
+    public function getMenuInfo(): string
+    {
+        $str = $this->menuInfo($this->getGlobalAccessToken());
+        if ($this->checkError($str)){
+            return $str;
+        }
+        return false;
+    }
+
+    /**
+     * @desc 删除自定义菜单
+     * @return bool
+     */
+    public function delMenu(): bool
+    {
+        $str = $this->menuDel($this->getGlobalAccessToken());
+        return $this->checkError($str);
+    }
+
+    /**
+     * @desc 设置个性化菜单
+     * @param array $data
+     * @param array $matchrule
+     * @return bool
+     */
+    public function setMenuConditional(array $data, array $matchrule): bool
+    {
+        $str = $this->menuConditional($this->getGlobalAccessToken(),$data,$matchrule);
+        return $this->checkError($str);
+    }
+
+    /**
+     * @desc 获取个性化菜单
+     * @return string
+     */
+    public function getMenuConditionalInfo(): string
+    {
+        $str = $this->menuConditionalInfo($this->getGlobalAccessToken());
+        return $this->checkError($str);
+    }
+
+    /**
+     * @desc 捕获微信错误码
+     * @param string $response
+     * @return bool
+     */
+    public function checkError(string $response)
     {
         $arr = json_decode($response,true);
         try{
@@ -139,9 +202,12 @@ class Wechat implements IAuth,IResponseCode
                 throw new \Exception($msg,$arr['errcode']);
             }
         }catch (\Exception $e){
-           echo '错误原因: "'.$e->getMessage().'" 微信错误码: ('.$e->getCode().')</br>';
-           return false;
+            $err_arr = array_reverse(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS))[0];
+            echo '错误原因: "'.$e->getMessage().'" 微信错误码: ('.$e->getCode().')</br>';
+            echo $err_arr['file'].'::'.$err_arr['line'];
+            die();
         }
+
         return true;
     }
 
