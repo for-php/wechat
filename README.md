@@ -145,3 +145,5 @@ $setMenuConditional = $wechat->setMenuConditional($data,$matchrule);
 获取个性化菜单设置
 
 `$getMenuConditionalInfo = $wechat->getMenuConditionalInfo();`
+
+##未完待续
