@@ -59,6 +59,7 @@ class Wechat implements IAuth,IResponseCode
     {
         $arr = json_decode(Cache::cache('globalaccesstoken'),true);
         $str = Cache::cache('globalaccesstoken');
+
         if ($arr['timeout']&&$arr['timeout']<time()){
             $str = $this->globalAccessToken($this->appid,$this->appsecret);
         }
@@ -66,8 +67,13 @@ class Wechat implements IAuth,IResponseCode
         if(!$arr||array_key_exists($arr['access_token'])){
             $str = $this->globalAccessToken($this->appid,$this->appsecret);
         }
-        $this->checkError($str);
-        return json_decode($str,true)['access_token'];
+
+        $res = $this->checkError($str);
+        if ($res){
+            return json_decode($str,true)['access_token'];
+        }
+        return false;
+
     }
 
     /**
@@ -91,8 +97,11 @@ class Wechat implements IAuth,IResponseCode
         if (isset($_GET['code'])){
             $code = $_GET['code'];
             $str = $this->userInfo($this->appid,$this->appsecret,$code);
-            $this->checkError($str);
-            return $str;
+            $res = $this->checkError($str);
+            if ($res){
+                return $str;
+            }
+            return false;
         }
 
         $redirect_url = 'http://'.$_SERVER['SERVER_NAME'].$_SERVER["REQUEST_URI"];
@@ -110,25 +119,30 @@ class Wechat implements IAuth,IResponseCode
         if (isset($_GET['code'])){
             $code = $_GET['code'];
             $str = $this->openId($this->appid,$this->appsecret,$code);
-            $this->checkError($str);
-            return $str;
+            $res = $this->checkError($str);
+            if ($res){
+                return $str;
+            }
+            return false;
         }
 
         $redirect_url = 'http://'.$_SERVER['SERVER_NAME'].$_SERVER["REQUEST_URI"];
         $this->webAuth($redirect_url,'snsapi_base');
     }
 
-    public function checkError(string $response): void
+    public function checkError(string $response): bool
     {
         $arr = json_decode($response,true);
         try{
             if(array_key_exists('errcode',$arr)&&$arr['errcode']!=0){
                 $msg = IResponseCode::RESPONSE_CODE[$arr['errcode']];
-                throw new \Exception($msg);
+                throw new \Exception($msg,$arr['errcode']);
             }
         }catch (\Exception $e){
-           echo $e->getMessage();
+           echo '错误原因: "'.$e->getMessage().'" 微信错误码: ('.$e->getCode().')</br>';
+           return false;
         }
+        return true;
     }
 
 }

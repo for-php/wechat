@@ -173,5 +173,5 @@ interface IResponseCode
         9001036     =>"查询起始值 begin 不合法",
     ];
 
-    public function checkError(string $response):void;
+    public function checkError(string $response):bool;
 }
