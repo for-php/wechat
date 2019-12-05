@@ -146,4 +146,4 @@ $setMenuConditional = $wechat->setMenuConditional($data,$matchrule);
 
 `$getMenuConditionalInfo = $wechat->getMenuConditionalInfo();`
 
-##未完待续
+## 未完待续
