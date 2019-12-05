@@ -3,9 +3,11 @@
 
 namespace wechat\lib;
 
+use mysql_xdevapi\Exception;
 use wechat\lib\Config;
 use wechat\lib\core\Auth;
 use wechat\lib\core\IAuth;
+use wechat\lib\core\IResponseCode;
 
 /**
  * Class Wechat
@@ -14,7 +16,7 @@ use wechat\lib\core\IAuth;
  * @email: 1402410174@qq.com
  * @date: 2019-12-04 10:27:35
  */
-class Wechat implements IAuth
+class Wechat implements IAuth,IResponseCode
 {
     use Auth;
 
@@ -56,16 +58,16 @@ class Wechat implements IAuth
     public function getGlobalAccessToken():string
     {
         $arr = json_decode(Cache::cache('globalaccesstoken'),true);
-
+        $str = Cache::cache('globalaccesstoken');
         if ($arr['timeout']&&$arr['timeout']<time()){
-            $arr = $this->globalAccessToken($this->appid,$this->appsecret);
+            $str = $this->globalAccessToken($this->appid,$this->appsecret);
         }
 
         if(!$arr||array_key_exists($arr['access_token'])){
-            $arr = $this->globalAccessToken($this->appid,$this->appsecret);
+            $str = $this->globalAccessToken($this->appid,$this->appsecret);
         }
-
-        return $arr['access_token'];
+        $this->checkError($str);
+        return json_decode($str,true)['access_token'];
     }
 
     /**
@@ -89,6 +91,7 @@ class Wechat implements IAuth
         if (isset($_GET['code'])){
             $code = $_GET['code'];
             $str = $this->userInfo($this->appid,$this->appsecret,$code);
+            $this->checkError($str);
             return $str;
         }
 
@@ -107,11 +110,25 @@ class Wechat implements IAuth
         if (isset($_GET['code'])){
             $code = $_GET['code'];
             $str = $this->openId($this->appid,$this->appsecret,$code);
+            $this->checkError($str);
             return $str;
         }
 
         $redirect_url = 'http://'.$_SERVER['SERVER_NAME'].$_SERVER["REQUEST_URI"];
-        $this->webAuth($redirect_url,'snsapi_base ');
+        $this->webAuth($redirect_url,'snsapi_base');
+    }
+
+    public function checkError(string $response): void
+    {
+        $arr = json_decode($response,true);
+        try{
+            if(array_key_exists('errcode',$arr)&&$arr['errcode']!=0){
+                $msg = IResponseCode::RESPONSE_CODE[$arr['errcode']];
+                throw new \Exception($msg);
+            }
+        }catch (\Exception $e){
+           echo $e->getMessage();
+        }
     }
 
 }

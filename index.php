@@ -25,4 +25,3 @@ $wechat = new Wechat();
 
 //单独获取用户openid，此获取不跳转用户授权界面，静默授权
 # $openid = $wechat->getOpenId();
-

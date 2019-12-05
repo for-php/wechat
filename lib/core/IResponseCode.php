@@ -4,7 +4,7 @@
 namespace wechat\lib\core;
 
 
-interface ResponseCode
+interface IResponseCode
 {
     const RESPONSE_CODE = [
         -1          =>"系统繁忙，此时请开发者稍候再试",
@@ -173,5 +173,5 @@ interface ResponseCode
         9001036     =>"查询起始值 begin 不合法",
     ];
 
-    public function response(string $response):string;
+    public function checkError(string $response):void;
 }

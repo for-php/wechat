@@ -54,7 +54,7 @@ trait Auth
         $url = "https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=$appid&secret=$appsecret";
         $str = Http::curl('get',$url);
         Cache::cache('globalaccesstoken',$str);
-        return json_decode($str,true);
+        return $str;
     }
 
     /**
@@ -100,7 +100,7 @@ trait Auth
     {
         $url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=$appid&secret=$appsecret&code=$code&grant_type=authorization_code";
         $str = Http::curl('get',$url);
-        return json_decode($str,true)['openid'];
+        return $str;
     }
 
 }
