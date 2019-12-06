@@ -9,8 +9,10 @@ use wechat\lib\core\IAuth;
 use wechat\lib\core\IMenu;
 use wechat\lib\core\IRequestMsg;
 use wechat\lib\core\IResponseCode;
+use wechat\lib\core\IResponseMsg;
 use wechat\lib\core\Menu;
 use wechat\lib\core\RequestMsg;
+use wechat\lib\core\ResponseMsg;
 
 /**
  * Class Wechat
@@ -19,9 +21,9 @@ use wechat\lib\core\RequestMsg;
  * @email: 1402410174@qq.com
  * @date: 2019-12-04 10:27:35
  */
-class Wechat implements IAuth,IResponseCode,IMenu,IRequestMsg
+class Wechat implements IAuth,IResponseCode,IMenu,IRequestMsg,IResponseMsg
 {
-    use Auth,Menu,RequestMsg;
+    use Auth,Menu,RequestMsg,ResponseMsg;
 
     /**
      * @desc 微信 服务号|订阅号 appid
@@ -192,6 +194,36 @@ class Wechat implements IAuth,IResponseCode,IMenu,IRequestMsg
     public function getMsg(): array
     {
         return $this->Msg();
+    }
+
+    public function sendText(string $toUserName,string $fromUserName,string $content): void
+    {
+        $this->text($toUserName,$fromUserName,$content);
+    }
+
+    public function sendImg(string $toUserName, string $fromUserName, string $mediaId): void
+    {
+        $this->img($toUserName,$fromUserName,$mediaId);
+    }
+
+    public function sendVoice(string $toUserName, string $fromUserName, string $mediaId): void
+    {
+        $this->voice($toUserName,$fromUserName,$mediaId);
+    }
+
+    public function sendMusic(string $toUserName, string $fromUserName, array $content): void
+    {
+        $this->music($toUserName,$fromUserName,$content);
+    }
+
+    public function sendVideo(string $toUserName, string $fromUserName, array $content): void
+    {
+        $this->video($toUserName,$fromUserName,$content);
+    }
+
+    public function sendNews(string $toUserName, string $fromUserName, array $articles): void
+    {
+        $this->news($toUserName,$fromUserName,$articles);
     }
 
     /**

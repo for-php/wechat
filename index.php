@@ -94,5 +94,41 @@ $wechat = new Wechat();
 //获取个性化菜单设置
 # $getMenuConditionalInfo = $wechat->getMenuConditionalInfo();
 
-//接收用户发来的消息，返回数组类型数据
+//接收用户发来的消息，返回数组类型数据,数据内容间微信开发文档
 # $msg = $wechat->getMsg();
+
+//被动回复文本消息,参数1:接收方openid  参数2:开发者openid  参数3:发送内容,以下使用接收来的数据
+# $sendText = $wechat->sendText($msg['FromUserName'],$msg['ToUserName'],'您发送的内容是:'.$msg['Content']);
+
+//被动回复图片消息,参数1:接收方openid  参数2:开发者openid  参数3:上传的图片素材id
+# $sendImg = $wechat->sendImg($toUserName,$fromUserName,$mediaId);
+
+//被动回复语音消息,参数1:接收方openid  参数2:开发者openid  参数3:上传的语音素材id
+# $sendVoice = $wechat->sendVoice($toUserName,$fromUserName,$mediaId);
+
+//被动回复视频消息,参数1:接收方openid  参数2:开发者openid  参数3:数组(格式见下方参考)
+/*
+
+    $content = [
+        'title'     => '', //标题
+        'desc'      => '', //描述
+        'mediaId'   => '', //上传的素材ID
+    ];
+*/
+# $sendVideo = $wechat->sendVoice($toUserName,$fromUserName,$content);
+
+//被动回复音乐消息,参数1:接收方openid  参数2:开发者openid  参数3:数组(格式见下方参考)
+/*
+
+    $content = [
+        'title'         => '', //标题
+        'desc'          => '', //描述
+        'url'           => '', //音乐链接
+        'Hurl'          => '', //高品质音乐链接,WIFI状态下默认播放这个
+        'thumbMediaId'  => '', //消息缩略图,上传的图片素材ID
+    ];
+*/
+# $sendMusic = $wechat->sendVoice($toUserName,$fromUserName,$content);
+
+//被动回复图文消息,参数1:接收方openid  参数2:开发者openid  参数3:数组(格式见下方参考)
+# $sendNews = $wechat->sendNews($toUserName,$fromUserName,$articles);
