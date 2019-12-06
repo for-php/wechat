@@ -108,7 +108,6 @@ $wechat = new Wechat();
 
 //被动回复视频消息,参数1:接收方openid  参数2:开发者openid  参数3:数组(格式见下方参考)
 /*
-
     $content = [
         'title'     => '', //标题
         'desc'      => '', //描述
@@ -119,7 +118,6 @@ $wechat = new Wechat();
 
 //被动回复音乐消息,参数1:接收方openid  参数2:开发者openid  参数3:数组(格式见下方参考)
 /*
-
     $content = [
         'title'         => '', //标题
         'desc'          => '', //描述
@@ -131,4 +129,17 @@ $wechat = new Wechat();
 # $sendMusic = $wechat->sendVoice($toUserName,$fromUserName,$content);
 
 //被动回复图文消息,参数1:接收方openid  参数2:开发者openid  参数3:数组(格式见下方参考)
+/*
+    $articles = [
+        '第一篇' => [
+            'title'     => '', //标题
+            'desc'      => '', //描述
+            'picurl'    => '', //缩略图url
+            'url'       => '', //点击跳转页面url
+        ],
+        '第二篇' => [],
+        '第三篇' => [],
+        ... //一次性最多发送8篇，数量限制详情见微信开发文档
+    ];
+*/
 # $sendNews = $wechat->sendNews($toUserName,$fromUserName,$articles);
