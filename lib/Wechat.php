@@ -3,13 +3,14 @@
 
 namespace wechat\lib;
 
-use mysql_xdevapi\Exception;
 use wechat\lib\Config;
 use wechat\lib\core\Auth;
 use wechat\lib\core\IAuth;
 use wechat\lib\core\IMenu;
+use wechat\lib\core\IRequestMsg;
 use wechat\lib\core\IResponseCode;
 use wechat\lib\core\Menu;
+use wechat\lib\core\RequestMsg;
 
 /**
  * Class Wechat
@@ -18,9 +19,9 @@ use wechat\lib\core\Menu;
  * @email: 1402410174@qq.com
  * @date: 2019-12-04 10:27:35
  */
-class Wechat implements IAuth,IResponseCode,IMenu
+class Wechat implements IAuth,IResponseCode,IMenu,IRequestMsg
 {
-    use Auth,Menu;
+    use Auth,Menu,RequestMsg;
 
     /**
      * @desc 微信 服务号|订阅号 appid
@@ -186,6 +187,11 @@ class Wechat implements IAuth,IResponseCode,IMenu
     {
         $str = $this->menuConditionalInfo($this->getGlobalAccessToken());
         return $this->checkError($str);
+    }
+
+    public function getMsg(): array
+    {
+        return $this->Msg();
     }
 
     /**

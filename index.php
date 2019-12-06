@@ -93,3 +93,6 @@ $wechat = new Wechat();
 
 //获取个性化菜单设置
 # $getMenuConditionalInfo = $wechat->getMenuConditionalInfo();
+
+//接收用户发来的消息，返回数组类型数据
+# $msg = $wechat->getMsg();
