@@ -143,3 +143,15 @@ $wechat = new Wechat();
     ];
 */
 # $sendNews = $wechat->sendNews($toUserName,$fromUserName,$articles);
+
+//上传临时素材文件,参数1:文件类型(image、voice、video、thumb)  参数2:文件路径。返回json格式字符串数据内容见微信开发手册
+# $tempMedia = $wechat->addTempMedia($type,$filepath);
+
+//获取临时素材,参数1:素材media_id  图片素材返回图片文件流字符串  视频素材返回json格式字符串包含视频url地址。以下示例将获取的图片素材文件流保存为本地文件
+/*
+    $getTempMedia = $wechat->getTempMedia('sbLQ9VGIMCXHY_EYhH0hcESjvy9brQTnFk-MsQHOjzWmWE8e0Hi269DYmK_bSiMR');
+
+    $file = fopen('test.jpg','w+');
+    fwrite($file,$getTempMedia);
+    fclose($file);
+*/

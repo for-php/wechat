@@ -6,10 +6,12 @@ namespace wechat\lib;
 use wechat\lib\Config;
 use wechat\lib\core\Auth;
 use wechat\lib\core\IAuth;
+use wechat\lib\core\IMedia;
 use wechat\lib\core\IMenu;
 use wechat\lib\core\IRequestMsg;
 use wechat\lib\core\IResponseCode;
 use wechat\lib\core\IResponseMsg;
+use wechat\lib\core\Media;
 use wechat\lib\core\Menu;
 use wechat\lib\core\RequestMsg;
 use wechat\lib\core\ResponseMsg;
@@ -21,9 +23,9 @@ use wechat\lib\core\ResponseMsg;
  * @email: 1402410174@qq.com
  * @date: 2019-12-04 10:27:35
  */
-class Wechat implements IAuth,IResponseCode,IMenu,IRequestMsg,IResponseMsg
+class Wechat implements IAuth,IResponseCode,IMenu,IRequestMsg,IResponseMsg,IMedia
 {
-    use Auth,Menu,RequestMsg,ResponseMsg;
+    use Auth,Menu,RequestMsg,ResponseMsg,Media;
 
     /**
      * @desc 微信 服务号|订阅号 appid
@@ -226,6 +228,27 @@ class Wechat implements IAuth,IResponseCode,IMenu,IRequestMsg,IResponseMsg
         $this->news($toUserName,$fromUserName,$articles);
     }
 
+    public function addTempMedia(string $type, string $file): string
+    {
+        if (!is_file($file)){
+            $this->error('无效文件');
+        }
+        $str = $this->tempMedia($this->getGlobalAccessToken(),$type,$file);
+        if ($this->checkError($str)){
+            return $str;
+        }
+        return '';
+    }
+
+    public function getTempMedia(string $media_id)
+    {
+        $str = $this->downloadTempMedia($this->getGlobalAccessToken(),$media_id);
+        if ($this->checkError($str)){
+            return $str;
+        }
+        return false;
+    }
+
     /**
      * @desc 捕获微信错误码
      * @param string $response
@@ -247,6 +270,17 @@ class Wechat implements IAuth,IResponseCode,IMenu,IRequestMsg,IResponseMsg
         }
 
         return true;
+    }
+
+    private function error(string $msg){
+        try{
+                throw new \Exception($msg);
+        }catch (\Exception $e){
+            $err_arr = array_reverse(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS))[0];
+            echo '错误原因: "'.$e->getMessage().'"</br>';
+            echo $err_arr['file'].'::'.$err_arr['line'];
+            die();
+        }
     }
 
 }
