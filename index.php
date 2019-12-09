@@ -94,7 +94,7 @@ $wechat = new Wechat();
 //获取个性化菜单设置
 # $getMenuConditionalInfo = $wechat->getMenuConditionalInfo();
 
-//接收用户发来的消息，返回数组类型数据,数据内容间微信开发文档
+//接收用户发来的消息，返回数组类型数据,数据内容见微信开发文档
 # $msg = $wechat->getMsg();
 
 //被动回复文本消息,参数1:接收方openid  参数2:开发者openid  参数3:发送内容,以下使用接收来的数据
