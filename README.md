@@ -31,7 +31,7 @@
 
 #### 1、开始
 
-导入Wechat类，完成微信开发
+配置好包根目录的config.php文件,导入Wechat类，完成微信开发
 
 `use wechat\lib\Wechat;`
 
