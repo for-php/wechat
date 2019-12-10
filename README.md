@@ -230,7 +230,7 @@ $articles = [
 $sendNews = $wechat->sendNews($toUserName,$fromUserName,$articles);
 ```
 
-#### 3、素材管理
+#### 4、素材管理
 
 ``` 
 素材上传提示
