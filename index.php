@@ -109,12 +109,13 @@ $wechat = new Wechat();
 //被动回复视频消息,参数1:接收方openid  参数2:开发者openid  参数3:数组(格式见下方参考)
 /*
     $content = [
-        'title'     => '', //标题
-        'desc'      => '', //描述
-        'mediaId'   => '', //上传的素材ID
+        'title'     => '123', //标题
+        'desc'      => '123', //描述
+        'mediaId'   => 'fst_F_4QO9ofnptaL0x2GcC45o5vD8NAuZFpHTaOC8Q', //上传的素材ID
     ];
+
+    $sendVideo = $wechat->sendVideo($toUserName,$fromUserName,$content);
 */
-# $sendVideo = $wechat->sendVoice($toUserName,$fromUserName,$content);
 
 //被动回复音乐消息,参数1:接收方openid  参数2:开发者openid  参数3:数组(格式见下方参考)
 /*
@@ -126,7 +127,7 @@ $wechat = new Wechat();
         'thumbMediaId'  => '', //消息缩略图,上传的图片素材ID
     ];
 */
-# $sendMusic = $wechat->sendVoice($toUserName,$fromUserName,$content);
+# $sendMusic = $wechat->sendMusic($toUserName,$fromUserName,$content);
 
 //被动回复图文消息,参数1:接收方openid  参数2:开发者openid  参数3:数组(格式见下方参考)
 /*
@@ -144,14 +145,49 @@ $wechat = new Wechat();
 */
 # $sendNews = $wechat->sendNews($toUserName,$fromUserName,$articles);
 
-//上传临时素材文件,参数1:文件类型(image、voice、video、thumb)  参数2:文件路径。返回json格式字符串数据内容见微信开发手册
-# $tempMedia = $wechat->addTempMedia($type,$filepath);
+/*
+    素材上传提示
+    图片（image）: 2M，支持PNG\JPEG\JPG\GIF格式
+    语音（voice）：2M，播放长度不超过60s，支持AMR\MP3格式
+    视频（video）：10MB，支持MP4格式
+    缩略图（thumb）：64KB，支持JPG格式
+ */
+
+//上传图片临时素材文件,参数1:文件路径。返回json格式字符串数据内容见微信开发手册
+# $tempMedia = $wechat->addImgTempMedia($filepath);
+
+//上传语音临时素材文件,参数1:文件路径。返回json格式字符串数据内容见微信开发手册
+# $tempMedia = $wechat->addVoiceTempMedia($filepath);
+
+//上传视频临时素材文件,参数1:文件路径。返回json格式字符串数据内容见微信开发手册
+# $tempMedia = $wechat->addVideoTempMedia($filepath);
+
+//上传缩略图临时素材文件,参数1:文件路径。返回json格式字符串数据内容见微信开发手册
+# $tempMedia = $wechat->addThumbTempMedia($filepath);
 
 //获取临时素材,参数1:素材media_id  图片素材返回图片文件流字符串  视频素材返回json格式字符串包含视频url地址。以下示例将获取的图片素材文件流保存为本地文件
 /*
-    $getTempMedia = $wechat->getTempMedia('sbLQ9VGIMCXHY_EYhH0hcESjvy9brQTnFk-MsQHOjzWmWE8e0Hi269DYmK_bSiMR');
+    $getTempMedia = $wechat->getTempMedia($media_id);//'sbLQ9VGIMCXHY_EYhH0hcESjvy9brQTnFk-MsQHOjzWmWE8e0Hi269DYmK_bSiMR'
 
     $file = fopen('test.jpg','w+');
     fwrite($file,$getTempMedia);
     fclose($file);
 */
+
+//获取jssdk上传的高清语音
+# $getJssdkMedia = $wechat->getJssdkMedia($media_id)
+
+//上传图片永久素材
+# $addImgMaterial = $wechat->addImgMaterial($file);//fst_F_4QO9ofnptaL0x2GZXPQ3VW-tTxMpDZGG9rcmI
+
+//上传语音永久素材
+# $addVoiceMaterial = $wechat->addVoiceMaterial($file);
+
+//上传永久视频素材，参数1:文件路径  参数2:视频标题  参数3:视频描述
+# $addVideoMaterial = $wechat->addVideoMaterial($file,$title,$introduction);//fst_F_4QO9ofnptaL0x2GcC45o5vD8NAuZFpHTaOC8Q
+
+//上传永久缩略图素材
+# $addThumbMaterial = $wechat->addThumbMaterial($file);
+
+//删除永久素材
+# $delMaterial = $wechat->delMaterial($media_id);

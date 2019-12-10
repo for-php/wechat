@@ -193,56 +193,255 @@ class Wechat implements IAuth,IResponseCode,IMenu,IRequestMsg,IResponseMsg,IMedi
         return $this->checkError($str);
     }
 
+    /**
+     * @desc
+     * @return array
+     */
     public function getMsg(): array
     {
         return $this->Msg();
     }
 
-    public function sendText(string $toUserName,string $fromUserName,string $content): void
+    /**
+     * @desc
+     * @param string $toUserName
+     * @param string $fromUserName
+     * @param string $content
+     */
+    public function sendText(string $toUserName, string $fromUserName, string $content): void
     {
         $this->text($toUserName,$fromUserName,$content);
     }
 
+    /**
+     * @desc
+     * @param string $toUserName
+     * @param string $fromUserName
+     * @param string $mediaId
+     */
     public function sendImg(string $toUserName, string $fromUserName, string $mediaId): void
     {
         $this->img($toUserName,$fromUserName,$mediaId);
     }
 
+    /**
+     * @desc
+     * @param string $toUserName
+     * @param string $fromUserName
+     * @param string $mediaId
+     */
     public function sendVoice(string $toUserName, string $fromUserName, string $mediaId): void
     {
         $this->voice($toUserName,$fromUserName,$mediaId);
     }
 
+    /**
+     * @desc
+     * @param string $toUserName
+     * @param string $fromUserName
+     * @param array $content
+     */
     public function sendMusic(string $toUserName, string $fromUserName, array $content): void
     {
         $this->music($toUserName,$fromUserName,$content);
     }
 
+    /**
+     * @desc
+     * @param string $toUserName
+     * @param string $fromUserName
+     * @param array $content
+     */
     public function sendVideo(string $toUserName, string $fromUserName, array $content): void
     {
         $this->video($toUserName,$fromUserName,$content);
     }
 
+    /**
+     * @desc
+     * @param string $toUserName
+     * @param string $fromUserName
+     * @param array $articles
+     */
     public function sendNews(string $toUserName, string $fromUserName, array $articles): void
     {
         $this->news($toUserName,$fromUserName,$articles);
     }
 
-    public function addTempMedia(string $type, string $file): string
+    /**
+     * @desc
+     * @param string $file
+     * @return string
+     */
+    public function addImgTempMedia(string $file): string
     {
-        if (!is_file($file)){
+        if(!$this->extension($file,['png','jpeg','jpg','gif'])){
             $this->error('无效文件');
         }
-        $str = $this->tempMedia($this->getGlobalAccessToken(),$type,$file);
+        $str = $this->tempMedia($this->getGlobalAccessToken(),'image',$file);
         if ($this->checkError($str)){
             return $str;
         }
         return '';
     }
 
+    /**
+     * @desc
+     * @param string $file
+     * @return string
+     */
+    public function addVoiceTempMedia(string $file): string
+    {
+        if(!$this->extension($file,['amr','mp3'])){
+            $this->error('无效文件');
+        }
+        $str = $this->tempMedia($this->getGlobalAccessToken(),'voice',$file);
+        if ($this->checkError($str)){
+            return $str;
+        }
+        return '';
+    }
+
+    /**
+     * @desc
+     * @param string $file
+     * @return string
+     */
+    public function addVideoTempMedia(string $file): string
+    {
+        if(!$this->extension($file,['mp4'])){
+            $this->error('无效文件');
+        }
+        $str = $this->tempMedia($this->getGlobalAccessToken(),'video',$file);
+        if ($this->checkError($str)){
+            return $str;
+        }
+        return '';
+    }
+
+    /**
+     * @desc
+     * @param string $file
+     * @return string
+     */
+    public function addThumbTempMedia(string $file): string
+    {
+        if(!$this->extension($file,['jpg'])){
+            $this->error('无效文件');
+        }
+        $str = $this->tempMedia($this->getGlobalAccessToken(),'thumb',$file);
+        if ($this->checkError($str)){
+            return $str;
+        }
+        return '';
+    }
+
+    /**
+     * @desc
+     * @param string $file
+     * @return string
+     */
+    public function addImgMaterial(string $file): string
+    {
+        if(!$this->extension($file,['bmp','png','jpeg','jpg','gif'])){
+            $this->error('无效文件');
+        }
+        $str = $this->material($this->getGlobalAccessToken(),'image',$file);
+        if ($this->checkError($str)){
+            return $str;
+        }
+        return '';
+    }
+
+    /**
+     * @desc
+     * @param string $file
+     * @return string
+     */
+    public function addVoiceMaterial(string $file): string
+    {
+        if(!$this->extension($file,['mp3','wma','wav','amr'])){
+            $this->error('无效文件');
+        }
+        $str = $this->material($this->getGlobalAccessToken(),'voice',$file);
+        if ($this->checkError($str)){
+            return $str;
+        }
+        return '';
+    }
+
+    /**
+     * @desc
+     * @param string $file
+     * @param string $title
+     * @param string $introduction
+     * @return string
+     */
+    public function addVideoMaterial(string $file, string $title, string $introduction): string
+    {
+        if(!$this->extension($file,['mp4'])){
+            $this->error('无效文件');
+        }
+        $str = $this->material($this->getGlobalAccessToken(),'video',$file,$title,$introduction);
+        if ($this->checkError($str)){
+            return $str;
+        }
+        return '';
+    }
+
+    /**
+     * @desc
+     * @param string $file
+     * @return string
+     */
+    public function addThumbMaterial(string $file): string
+    {
+        if(!$this->extension($file,['jpg'])){
+            $this->error('无效文件');
+        }
+        $str = $this->material($this->getGlobalAccessToken(),'thumb',$file);
+        if ($this->checkError($str)){
+            return $str;
+        }
+        return '';
+    }
+
+    /**
+     * @desc
+     * @param string $media_id
+     * @return bool|string
+     */
     public function getTempMedia(string $media_id)
     {
         $str = $this->downloadTempMedia($this->getGlobalAccessToken(),$media_id);
+        if ($this->checkError($str)){
+            return $str;
+        }
+        return false;
+    }
+
+    /**
+     * @desc
+     * @param string $media_id
+     * @return string
+     */
+    public function getJssdkMedia(string $media_id): string
+    {
+        $str = $this->downloadJssdkMedia($this->getGlobalAccessToken(),$media_id);
+        if ($this->checkError($str)){
+            return $str;
+        }
+        return false;
+    }
+
+    /**
+     * @desc
+     * @param string $media_id
+     * @return bool
+     */
+    public function delMaterial(string $media_id): bool
+    {
+        $str = $this->materialDel($this->getGlobalAccessToken(),$media_id);
         if ($this->checkError($str)){
             return $str;
         }
@@ -272,6 +471,10 @@ class Wechat implements IAuth,IResponseCode,IMenu,IRequestMsg,IResponseMsg,IMedi
         return true;
     }
 
+    /**
+     * @desc
+     * @param string $msg
+     */
     private function error(string $msg){
         try{
                 throw new \Exception($msg);

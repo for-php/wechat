@@ -229,4 +229,86 @@ $articles = [
 
 $sendNews = $wechat->sendNews($toUserName,$fromUserName,$articles);
 ```
+
+#### 3、素材管理
+
+``` 
+素材上传提示
+图片（image）: 2M，支持PNG\JPEG\JPG\GIF格式
+语音（voice）：2M，播放长度不超过60s，支持AMR\MP3格式
+视频（video）：10MB，支持MP4格式
+缩略图（thumb）：64KB，支持JPG格式
+``` 
+
+
+上传图片临时素材文件,参数1:文件路径。返回json格式字符串数据内容见微信开发手册
+
+`$tempMedia = $wechat->addImgTempMedia($filepath);`
+
+---
+
+上传语音临时素材文件,参数1:文件路径。返回json格式字符串数据内容见微信开发手册
+
+`$tempMedia = $wechat->addVoiceTempMedia($filepath);`
+
+---
+
+上传视频临时素材文件,参数1:文件路径。返回json格式字符串数据内容见微信开发手册
+
+`$tempMedia = $wechat->addVideoTempMedia($filepath);`
+
+---
+
+上传缩略图临时素材文件,参数1:文件路径。返回json格式字符串数据内容见微信开发手册
+
+`$tempMedia = $wechat->addThumbTempMedia($filepath);`
+
+---
+
+获取临时素材,参数1:素材media_id  图片素材返回图片文件流字符串  视频素材返回json格式字符串包含视频url地址。以下示例将获取的图片素材文件流保存为本地文件
+
+```
+$getTempMedia = $wechat->getTempMedia($media_id);
+
+$file = fopen('test.jpg','w+');
+fwrite($file,$getTempMedia);
+fclose($file);
+```
+
+---
+
+获取jssdk上传的高清语音
+
+`$getJssdkMedia = $wechat->getJssdkMedia($media_id)`
+
+---
+
+上传图片永久素材
+
+`$addImgMaterial = $wechat->addImgMaterial($file);`
+
+---
+
+上传语音永久素材
+
+`$addVoiceMaterial = $wechat->addVoiceMaterial($file);`
+
+---
+
+上传永久视频素材，参数1:文件路径  参数2:视频标题  参数3:视频描述
+
+`$addVideoMaterial = $wechat->addVideoMaterial($file,$title,$introduction);`
+
+---
+
+上传永久缩略图素材
+
+`$addThumbMaterial = $wechat->addThumbMaterial($file);`
+
+---
+
+删除永久素材
+
+`$delMaterial = $wechat->delMaterial($media_id);`
+
 ## 未完待续
